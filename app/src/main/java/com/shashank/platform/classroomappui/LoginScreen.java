@@ -1,7 +1,9 @@
 package com.shashank.platform.classroomappui;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,6 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.shashank.platform.classroomappui.ui.home.Home;
 import com.shashank.platform.classroomappui.utils.Constants;
 
 import org.json.JSONArray;
@@ -33,6 +36,18 @@ public class LoginScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
+
+        if (isLoginAlready()) {
+            // The device is already registered for push notifications
+            // Proceed to navigate to the main app screen or perform any other action
+            startActivity(new Intent(LoginScreen.this, Home.class));
+            finish();
+        } else {
+            // The device is not registered for push notifications
+            // You might want to initiate the registration process here
+            // For example, you can prompt the user to register or register the device automatically
+
+        }
 
         // Instantiate the RequestQueue.
         requestQueue = Volley.newRequestQueue(this);
@@ -99,7 +114,18 @@ public class LoginScreen extends AppCompatActivity {
 
                                         // Extracting values
                                         int registrationID = innerJsonObject.getInt("RegistrationID");
-                                        Toast.makeText(this, "" + registrationID, Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(this, "" + registrationID, Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(LoginScreen.this, Home.class));
+                                        finish();
+
+                                        // Get the SharedPreferences object
+                                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                        editor.putString("registration_id", "" + registrationID);
+
+                                        editor.apply();
 
 
                                     } else {
@@ -131,7 +157,7 @@ public class LoginScreen extends AppCompatActivity {
         TextView signUpButton = findViewById(R.id.sign_up);
         signUpButton.setOnClickListener(v -> {
             startActivity(new Intent(LoginScreen.this, SignupScreen.class));
-            finish();
+
         });
 
 
@@ -175,4 +201,11 @@ public class LoginScreen extends AppCompatActivity {
                 emailErrorText.getVisibility() == View.GONE &&
                         passwordErrorText.getVisibility() == View.GONE;
     }
+
+    private boolean isLoginAlready() {
+        // Check if the Registration ID exists in SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        return sharedPreferences.contains("registration_id");
+    }
+
 }

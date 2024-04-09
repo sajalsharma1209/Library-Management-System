@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:textColorHint="#FFB3B3B3">
+                android:textColorHint="#9A8D8D">
 
                 <EditText
                     android:id="@+id/name_edit_text"
@@ -72,7 +72,7 @@
                 android:id="@+id/email_til"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="#FFB3B3B3">
+                android:textColorHint="#9A8D8D">
 
                 <EditText
                     android:id="@+id/email_edit_text"
@@ -101,7 +101,7 @@
                 android:id="@+id/mobile_til"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="#FFB3B3B3">
+                android:textColorHint="#9A8D8D">
 
                 <EditText
                     android:id="@+id/mobile_edit_text"
@@ -134,7 +134,7 @@
                 android:id="@+id/password_til"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="#FFB3B3B3"
+                android:textColorHint="#9A8D8D"
                 app:passwordToggleEnabled="true">
 
                 <EditText
@@ -165,7 +165,7 @@
                 android:id="@+id/conf_password_til"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="#FFB3B3B3"
+                android:textColorHint="#9A8D8D"
                 app:passwordToggleEnabled="true">
 
                 <EditText

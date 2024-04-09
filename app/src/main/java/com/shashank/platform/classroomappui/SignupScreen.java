@@ -94,8 +94,33 @@ public class SignupScreen extends AppCompatActivity {
 
                             try {
                                 String body = response.getString("d");
-                                Log.e("Volley Error", body);
-                                Toast.makeText(SignupScreen.this, body, Toast.LENGTH_SHORT).show();
+
+                                if(body.equals("Mobile No already registered.")){
+                                    Toast.makeText(SignupScreen.this, body, Toast.LENGTH_SHORT).show();
+                                    mobileErrorText.setText(body);
+                                    mobileEditText.requestFocus();
+                                    mobileErrorText.setVisibility(View.VISIBLE);
+
+                                }
+                                else  if(body.equals("EmailID already registered.")){
+                                    Toast.makeText(SignupScreen.this, body, Toast.LENGTH_SHORT).show();
+                                    emailErrorText.setText(body);
+                                    emailEditText.requestFocus();
+                                    emailErrorText.setVisibility(View.VISIBLE);
+
+                                }
+
+                                else {
+                                        nameEditText.setText("");
+                                        emailEditText.setText("");
+                                        mobileEditText.setText("");
+                                        passwordEditText.setText("");
+                                        confirmPasswordEditText.setText("");
+                                    mobileErrorText.setVisibility(View.GONE);
+                                    emailErrorText.setVisibility(View.GONE);
+                                    Toast.makeText(this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+                                }
+
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
                             }
@@ -126,7 +151,7 @@ public class SignupScreen extends AppCompatActivity {
     private void validateName() {
         String name = nameEditText.getText().toString().trim();
         if (name.isEmpty()) {
-            nameErrorText.setText("Please enter your name");
+            nameErrorText.setText("Please enter your Library name");
             nameErrorText.setVisibility(View.VISIBLE);
         } else if (!name.matches("[a-zA-Z ]+")) {
             nameErrorText.setText("Invalid name format");
