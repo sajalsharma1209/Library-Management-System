@@ -16,5 +16,6 @@
     <color name="dark_shadow">#CDD5EA</color>
     <color name="light_shadow">#F8F9FE</color>
     <color name="dark_item">#212121</color>
+    <color name="primaryText">#FF5722</color>
 
 </resources>

@@ -20,19 +20,21 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.shashank.platform.classroomappui.Lectures;
 import com.shashank.platform.classroomappui.LoginScreen;
 import com.shashank.platform.classroomappui.MyProfile;
 import com.shashank.platform.classroomappui.R;
-import com.shashank.platform.classroomappui.ui.plans.Plans;
-import com.shashank.platform.classroomappui.ui.students.Students;
+import com.shashank.platform.classroomappui.ui.plans.ViewPlans;
+import com.shashank.platform.classroomappui.ui.students.AddStudent;
+import com.shashank.platform.classroomappui.ui.students.ViewStudents;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     LinearLayout profile;
     TextView profileName, profileEmail;
-    TextView libraryName,totalCollection,totalDues;
+    TextView libraryName, totalCollection, totalDues;
+
+    TextView liveMembers, totalMembers, expirenumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,17 +62,21 @@ public class Home extends AppCompatActivity
         profile.setOnClickListener(this);
 
         profileName = header.findViewById(R.id.profilename);
-        //  profileName.setText("Sajal");
+        profileName.setText("test");
 
         profileEmail = header.findViewById(R.id.profilemail);
-//        profileEmail.setText("Sajal");
+        profileEmail.setText("test@gmail.com");
 
-        libraryName=findViewById(R.id.libraryName);
-        libraryName.setText("sajal");
+        libraryName = findViewById(R.id.libraryName);
+        libraryName.setText("test");
 
-        totalCollection=findViewById(R.id.incomeLbl);
+        totalCollection = findViewById(R.id.incomeLbl);
 
-        totalDues=findViewById(R.id.duesLbl);
+        totalDues = findViewById(R.id.duesLbl);
+
+        totalMembers = findViewById(R.id.totalMemberNumber);
+        liveMembers = findViewById(R.id.liveMemberNumber);
+        expirenumber = findViewById(R.id.expireMemberNumber);
 
     }
 
@@ -105,16 +111,17 @@ public class Home extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(), Home.class);
             startActivity(intent);
         } else if (id == R.id.nav_students) {
-            Intent intent = new Intent(getApplicationContext(), Students.class);
+            Intent intent = new Intent(getApplicationContext(), ViewStudents.class);
             startActivity(intent);
         } else if (id == R.id.nav_plans) {
-            Intent intent = new Intent(getApplicationContext(), Plans.class);
+            Intent intent = new Intent(getApplicationContext(), ViewPlans.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_lectures) {
-            Intent intent = new Intent(getApplicationContext(), Lectures.class);
-            startActivity(intent);
         }
+//        else if (id == R.id.nav_lectures) {
+//            Intent intent = new Intent(getApplicationContext(), Lectures.class);
+//            startActivity(intent);
+//        }
 //        else if (id == R.id.nav_announcements) {
 //            Intent intent = new Intent(getApplicationContext(), Announcements.class);
 //            startActivity(intent);
@@ -153,12 +160,12 @@ public class Home extends AppCompatActivity
             AlertDialog dialog = builder.create();
             dialog.show();
 
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_rate) {
-
         }
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_rate) {
+//
+//        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

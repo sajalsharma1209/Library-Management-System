@@ -27,6 +27,9 @@ public class SplashScreen extends AppCompatActivity {
         imageView = findViewById(R.id.logo);
         title = findViewById(R.id.title);
 
+        // Start the connectivity service
+        startService(new Intent(this, ConnectivityServices.class));
+
 
         top = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.top);
         middle = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.middle);
@@ -42,7 +45,7 @@ public class SplashScreen extends AppCompatActivity {
                     Intent i = new Intent(SplashScreen.this, LoginScreen.class);
                     startActivity(i);
                     finish();
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
             }
         };

@@ -1,6 +1,7 @@
 package com.shashank.platform.classroomappui;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,7 +27,7 @@ import org.json.JSONObject;
 
 public class LoginScreen extends AppCompatActivity {
 
-
+    private ProgressDialog progressDialog;
     private RequestQueue requestQueue;
 
     private EditText emailEditText, passwordEditText;
@@ -42,11 +43,6 @@ public class LoginScreen extends AppCompatActivity {
             // Proceed to navigate to the main app screen or perform any other action
             startActivity(new Intent(LoginScreen.this, Home.class));
             finish();
-        } else {
-            // The device is not registered for push notifications
-            // You might want to initiate the registration process here
-            // For example, you can prompt the user to register or register the device automatically
-
         }
 
         // Instantiate the RequestQueue.
@@ -73,6 +69,10 @@ public class LoginScreen extends AppCompatActivity {
             validatePassword();
             // validateConfirmPassword();
             if (isFormValid()) {
+                progressDialog = new ProgressDialog(this);
+                progressDialog.setMessage("Log in...");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
 
                 // String mobile = mobileEditText.getText().toString().trim();
                 String email = emailEditText.getText().toString().trim();
@@ -82,12 +82,9 @@ public class LoginScreen extends AppCompatActivity {
                 JSONObject jsonBody = new JSONObject();
                 try {
 
-
-//
                     jsonBody.put("UserName", email);
                     jsonBody.put("Password", password);
                     jsonBody.put("Result", "");
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -114,9 +111,8 @@ public class LoginScreen extends AppCompatActivity {
 
                                         // Extracting values
                                         int registrationID = innerJsonObject.getInt("RegistrationID");
-//                                        Toast.makeText(this, "" + registrationID, Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(LoginScreen.this, Home.class));
-                                        finish();
+                                      //  Toast.makeText(this, "" + registrationID, Toast.LENGTH_SHORT).show();
+
 
                                         // Get the SharedPreferences object
                                         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
@@ -127,23 +123,31 @@ public class LoginScreen extends AppCompatActivity {
 
                                         editor.apply();
 
+                                        progressDialog.dismiss();
+                                        startActivity(new Intent(LoginScreen.this, Home.class));
+                                        finish();
+
 
                                     } else {
                                         // "d" is an empty array
+                                        progressDialog.dismiss();
                                         Toast.makeText(this, "Invalid User Credentials", Toast.LENGTH_SHORT).show();
                                     }
                                 } else {
                                     // "d" is null or empty
+                                    progressDialog.dismiss();
                                     //Toast.makeText(this, "Invalid User Credentials", Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 // JSON parsing error
+                                progressDialog.dismiss();
                                 Log.e("Error", "JSON parsing error: " + e.getMessage());
                             }
 
                         }, error -> {
                     // Handle errors
                     Log.e("Volley Error", error.toString());
+                    progressDialog.dismiss();
                     Toast.makeText(LoginScreen.this, error.toString(), Toast.LENGTH_SHORT).show();
                 });
 
