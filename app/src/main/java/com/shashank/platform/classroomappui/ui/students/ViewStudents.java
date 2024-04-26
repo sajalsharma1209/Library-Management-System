@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -71,43 +72,41 @@ public class ViewStudents extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Constants.get_Student, jsonBody,
-                response -> {
-                    try {
-                        progressDialog.dismiss();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Constants.get_Student, jsonBody, response -> {
+            try {
+                progressDialog.dismiss();
 
-                        // Get the JSON array from the response object
-                        JSONArray jsonArray = new JSONArray(response.getString("d"));
+                // Get the JSON array from the response object
+                JSONArray jsonArray = new JSONArray(response.getString("d"));
 
-                        if (jsonArray.length() < 1) {
-                            // If empty, show the ImageView
-                            imageView.setVisibility(View.VISIBLE);
-                            recview.setVisibility(View.GONE);
-                        } else {
-                            // If not empty, hide the ImageView
-                            imageView.setVisibility(View.GONE);
-                            recview.setVisibility(View.VISIBLE);
-                        }
+                if (jsonArray.length() < 1) {
+                    // If empty, show the ImageView
+                    imageView.setVisibility(View.VISIBLE);
+                    recview.setVisibility(View.GONE);
+                } else {
+                    // If not empty, hide the ImageView
+                    imageView.setVisibility(View.GONE);
+                    recview.setVisibility(View.VISIBLE);
+                }
 
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject innerJsonObject = jsonArray.getJSONObject(i);
-                            ViewStudentModel obj = new ViewStudentModel(innerJsonObject.getString("UserID"), innerJsonObject.getString("Name"), innerJsonObject.getString("MobileNo"), innerJsonObject.getString("EmailID"), innerJsonObject.getString("Gender"), innerJsonObject.getString("MaritalStatus"), innerJsonObject.getString("DOB"), innerJsonObject.getString("Createdon"));
-                            datalist.add(obj);
-                            adapter = new ViewStudentAdapter(datalist);
-                            recview.setAdapter(adapter);
-                        }
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject innerJsonObject = jsonArray.getJSONObject(i);
+                    ViewStudentModel obj = new ViewStudentModel(innerJsonObject.getString("RegistrationID"), innerJsonObject.getString("Name"), innerJsonObject.getString("MobileNo"), innerJsonObject.getString("EmailID"), innerJsonObject.getString("Gender"), innerJsonObject.getString("MaritalStatus"), innerJsonObject.getString("DOB"), innerJsonObject.getString("PlanID"), innerJsonObject.getString("PlanName"), innerJsonObject.getString("SeatNo"), innerJsonObject.getString("PlanType"),innerJsonObject.getString("SeatID"));
+                    datalist.add(obj);
+                    adapter = new ViewStudentAdapter(datalist);
+                    recview.setAdapter(adapter);
+                }
 
-                        adapter.notifyDataSetChanged();
-                    } catch (JSONException e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e("Error Json", Objects.requireNonNull(e.getMessage()));
-                    }
-                },
-                error -> {
-                    progressDialog.dismiss();
-                    Toast.makeText(this, "Error " + error.getMessage(), Toast.LENGTH_SHORT).show();    // Handle error
-                });
+                adapter.notifyDataSetChanged();
+            } catch (JSONException e) {
+                progressDialog.dismiss();
+                Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("Error Json", Objects.requireNonNull(e.getMessage()));
+            }
+        }, error -> {
+            progressDialog.dismiss();
+            Toast.makeText(this, "Error " + error.getMessage(), Toast.LENGTH_SHORT).show();    // Handle error
+        });
 
 
         // Add the request to the RequestQueue.
@@ -137,14 +136,34 @@ public class ViewStudents extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.planadd, menu);
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.studentadd, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        // Set hint for the search view
+        searchView.setQueryHint("Search by Mobile Number");
+
+        // Implementing search functionality
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+               return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() == R.id.add_plan) {
+        if (item.getItemId() == R.id.add_student) {
             startActivity(new Intent(ViewStudents.this, AddStudent.class));
         }
         return super.onOptionsItemSelected(item);

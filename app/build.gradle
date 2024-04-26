@@ -46,6 +46,6 @@ dependencies {
     // round image view
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
-   // implementation 'com.github.GrenderG:Toasty:1.5.2'
+    // implementation 'com.github.GrenderG:Toasty:1.5.2'
     implementation 'com.android.support:multidex:1.0.3'
 }

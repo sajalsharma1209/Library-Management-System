@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignupScreen"
+    tools:context=".ui.students.UpdateStudent"
     tools:ignore="HardcodedText">
 
     <ScrollView
@@ -228,6 +228,22 @@
                     android:text="Married" />
             </RadioGroup>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/calibri"
+                android:text="Plans"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/plans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dialog" />
 
             <Button
                 android:id="@+id/sign_up"

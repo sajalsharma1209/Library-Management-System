@@ -10,4 +10,5 @@ public class Constants {
     public static String get_Student = API_BASE_URL + "GetUser";
     public static String plan_Insert_Update = API_BASE_URL + "InstUptPlan";
     public static String Student_Insert_Update = API_BASE_URL + "InstUptRegistrationUser";
+    public static String Seat_Insert_Update = API_BASE_URL + "InstUptSeat";
 }

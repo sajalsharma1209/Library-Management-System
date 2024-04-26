@@ -18,9 +18,9 @@
             android:icon="@drawable/ic_event_black_24dp"
             android:title="Plans" />
 <!--        <item-->
-<!--            android:id="@+id/nav_lectures"-->
+<!--            android:id="@+id/nav_seat"-->
 <!--            android:icon="@drawable/ic_import_contacts_black_24dp"-->
-<!--            android:title="Attendance" />-->
+<!--            android:title="Seat" />-->
 
 <!--        <item-->
 <!--            android:id="@+id/nav_announcements"-->

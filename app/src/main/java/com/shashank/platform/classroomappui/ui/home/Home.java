@@ -24,7 +24,6 @@ import com.shashank.platform.classroomappui.LoginScreen;
 import com.shashank.platform.classroomappui.MyProfile;
 import com.shashank.platform.classroomappui.R;
 import com.shashank.platform.classroomappui.ui.plans.ViewPlans;
-import com.shashank.platform.classroomappui.ui.students.AddStudent;
 import com.shashank.platform.classroomappui.ui.students.ViewStudents;
 
 public class Home extends AppCompatActivity
@@ -116,16 +115,8 @@ public class Home extends AppCompatActivity
         } else if (id == R.id.nav_plans) {
             Intent intent = new Intent(getApplicationContext(), ViewPlans.class);
             startActivity(intent);
-
         }
-//        else if (id == R.id.nav_lectures) {
-//            Intent intent = new Intent(getApplicationContext(), Lectures.class);
-//            startActivity(intent);
-//        }
-//        else if (id == R.id.nav_announcements) {
-//            Intent intent = new Intent(getApplicationContext(), Announcements.class);
-//            startActivity(intent);
-//        } else if (id == R.id.nav_settings) {
+        // else if (id == R.id.nav_settings) {
 //            Intent intent = new Intent(getApplicationContext(), Settings.class);
 //            startActivity(intent);
 //

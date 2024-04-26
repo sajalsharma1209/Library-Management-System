@@ -12,30 +12,41 @@ import android.text.InputType;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.shashank.platform.classroomappui.R;
 import com.shashank.platform.classroomappui.utils.Constants;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class UpdateStudent extends AppCompatActivity {
-    DatePickerDialog pickerdate;
-    RadioGroup radioGroup, radioGroup2;
-    int selectedRadioButtonId, selectedRadioButtonId2;
-    RadioButton selectedRadioButton, selectedRadioButton2, male, female, unmarried, married;
+    private DatePickerDialog pickerdate;
+    private RadioGroup radioGroup, radioGroup2;
+    private int selectedRadioButtonId, selectedRadioButtonId2;
+    private Spinner spinner;
+    private int planID = 0;
+    private RadioButton selectedRadioButton, selectedRadioButton2, male, female, unmarried, married;
+    private List<UpdateStudent.Plan> planList;
     private RequestQueue requestQueue;
     private ProgressDialog progressDialog;
     private EditText nameEditText, emailEditText, mobileEditText, dobEditText;
@@ -56,7 +67,23 @@ public class UpdateStudent extends AppCompatActivity {
         emailEditText = findViewById(R.id.email_edit_text);
         mobileEditText = findViewById(R.id.mobile_edit_text);
         dobEditText = findViewById(R.id.dob_edit_text);
+        spinner = findViewById(R.id.plans);
 
+        planList = new ArrayList<>();
+        getPlan();
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Retrieve the selected PlanID
+                int selectedPlanID = planList.get(position).getPlanID();
+                planID = selectedPlanID;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+
+            }
+        });
         radioGroup = findViewById(R.id.radiogroup);
 
         radioGroup2 = findViewById(R.id.radiogroup1);
@@ -66,11 +93,14 @@ public class UpdateStudent extends AppCompatActivity {
         unmarried = findViewById(R.id.unmarried);
         married = findViewById(R.id.married);
 
-
         nameEditText.setText(getIntent().getStringExtra("Name"));
         emailEditText.setText(getIntent().getStringExtra("EmailID"));
         mobileEditText.setText(getIntent().getStringExtra("MobileNo"));
         dobEditText.setText(getIntent().getStringExtra("DOB"));
+
+        //  List<UpdateStudent.Plan> planListAsArraysList = Arrays.asList(planList.toArray(new UpdateStudent.Plan[0]));
+
+        // spinner.setSelection(planList.indexOf(getIntent().getStringExtra("PlanName" )));
 
         if (getIntent().getStringExtra("Gender").equalsIgnoreCase("male")) {
             male.setChecked(true);
@@ -94,10 +124,8 @@ public class UpdateStudent extends AppCompatActivity {
         mobileErrorText = findViewById(R.id.mobile_error_text);
         dobErrorText = findViewById(R.id.dob_error_text);
 
-
         dobEditText.setInputType(InputType.TYPE_NULL);
         dobEditText.setOnClickListener(view -> {
-
 
             final Calendar calendar = Calendar.getInstance();
             int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -148,6 +176,7 @@ public class UpdateStudent extends AppCompatActivity {
                     jsonBody.put("gender", selectedOptionText);
                     jsonBody.put("MaritalStatus", selectedOptionText2);
                     jsonBody.put("DOB", dob);
+                    jsonBody.put("PlanID", planID);
                     jsonBody.put("Result", "");
 
 
@@ -162,16 +191,14 @@ public class UpdateStudent extends AppCompatActivity {
 
                     try {
                         String body = response.getString("d");
-                        Toast.makeText(this, "" + body, Toast.LENGTH_SHORT).show();
-
-                        if (body.equals("Mobile No already registered.")) {
+                        if (body.substring(1, body.length() - 1).equals("Mobile No already registered.")) {
                             mobileErrorText.setText(body);
                             mobileEditText.requestFocus();
                             mobileEditText.setSelection(mobileEditText.getText().length());
                             mobileErrorText.setVisibility(View.VISIBLE);
                             progressDialog.dismiss();
 
-                        } else if (body.equals("EmailID already registered.")) {
+                        } else if (body.substring(1, body.length() - 1).equals("EmailID already registered.")) {
                             emailErrorText.setText(body);
                             emailEditText.requestFocus();
                             emailEditText.setSelection(emailEditText.getText().length());
@@ -209,6 +236,27 @@ public class UpdateStudent extends AppCompatActivity {
         });
 
 
+    }
+
+    private void selectSpinnerValue(String planName) {
+
+        // Find the index of the matching plan in the planList
+        int selectedIndex = -1;
+        for (int i = 0; i < planList.size(); i++) {
+
+
+            if (planList.get(i).getPlanName().equalsIgnoreCase(planName)) {
+                selectedIndex = i;
+                // Toast.makeText(this, ""+i, Toast.LENGTH_SHORT).show();
+                break;
+            }
+
+        }
+
+        // Select the spinner item if found
+        if (selectedIndex != -1) {
+            spinner.setSelection(selectedIndex);
+        }
     }
 
 
@@ -284,5 +332,97 @@ public class UpdateStudent extends AppCompatActivity {
         startActivity(intent);
         finish();
         return true;
+    }
+
+    private void getPlan() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Fetching Plans...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        JSONObject jsonBody = new JSONObject();
+        try {
+
+            jsonBody.put("PlanID", "0");
+            jsonBody.put("RegistrationID", getRegistrationId());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constants.get_Plan, jsonBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            // Parse JSON object and populate planList
+
+                            JSONArray jsonArrayRequest = new JSONArray(response.getString("d"));
+
+                            for (int i = 0; i < jsonArrayRequest.length(); i++) {
+                                JSONObject jsonObject = jsonArrayRequest.getJSONObject(i);
+
+                                int planID = jsonObject.getInt("PlanID");
+                                String planName = jsonObject.getString("PlanName");
+                                planList.add(new Plan(planID, planName));
+
+                            }
+
+
+                            // Create ArrayAdapter using planList
+                            ArrayAdapter<UpdateStudent.Plan> adapter = new ArrayAdapter<>(UpdateStudent.this, android.R.layout.simple_spinner_item, planList);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                            // Set adapter to spinner
+                            spinner.setAdapter(adapter);
+
+                            selectSpinnerValue(getIntent().getStringExtra("PlanName"));
+
+                            progressDialog.dismiss();
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                progressDialog.dismiss();
+            }
+        });
+
+        // Add the request to the RequestQueue
+        requestQueue.add(request);
+
+    }
+
+    private static class Plan {
+        private int planID;
+        private String planName;
+
+        public Plan(int planID, String planName) {
+            this.planID = planID;
+            this.planName = planName;
+        }
+
+        public String getPlanName() {
+            return planName;
+        }
+
+        public int getPlanID() {
+            return planID;
+        }
+
+        @Override
+        public String toString() {
+            return planName;
+        }
+
+
     }
 }

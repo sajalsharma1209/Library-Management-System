@@ -13,32 +13,42 @@ import android.text.InputType;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.shashank.platform.classroomappui.R;
-import com.shashank.platform.classroomappui.ui.plans.AddPlans;
-import com.shashank.platform.classroomappui.ui.plans.ViewPlans;
+import com.shashank.platform.classroomappui.ui.seat.AddSeat;
 import com.shashank.platform.classroomappui.utils.Constants;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AddStudent extends AppCompatActivity {
     DatePickerDialog pickerdate;
     RadioGroup radioGroup, radioGroup2;
     int selectedRadioButtonId, selectedRadioButtonId2;
     RadioButton selectedRadioButton, selectedRadioButton2;
+    Spinner spinner;
+    int planID = 0;
+    private List<Plan> planList;
     private RequestQueue requestQueue;
     private ProgressDialog progressDialog;
     private EditText nameEditText, emailEditText, mobileEditText, dobEditText;
@@ -59,6 +69,8 @@ public class AddStudent extends AppCompatActivity {
         emailEditText = findViewById(R.id.email_edit_text);
         mobileEditText = findViewById(R.id.mobile_edit_text);
         dobEditText = findViewById(R.id.dob_edit_text);
+        spinner = findViewById(R.id.plans);
+        getPlan();
 
         radioGroup = findViewById(R.id.radiogroup);
 
@@ -85,6 +97,20 @@ public class AddStudent extends AppCompatActivity {
             pickerdate.show();
         });
 
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Retrieve the selected PlanID
+                int selectedPlanID = planList.get(position).getPlanID();
+                planID = selectedPlanID;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Do nothing
+            }
+        });
 
         Button submitButton = findViewById(R.id.sign_up);
         submitButton.setOnClickListener(v -> {
@@ -116,7 +142,6 @@ public class AddStudent extends AppCompatActivity {
                 // Create a JSON object to hold the parameters
                 JSONObject jsonBody = new JSONObject();
                 try {
-
                     jsonBody.put("RegistrationID", "0");
                     jsonBody.put("RefID", getRegistrationId());
                     jsonBody.put("Name", name);
@@ -126,12 +151,13 @@ public class AddStudent extends AppCompatActivity {
                     jsonBody.put("gender", selectedOptionText);
                     jsonBody.put("MaritalStatus", selectedOptionText2);
                     jsonBody.put("DOB", dob);
+                    jsonBody.put("PlanID", "" + planID);
                     jsonBody.put("Result", "");
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
 
                 //Request a JSON response from the provided URL.
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Constants.Student_Insert_Update, jsonBody,
@@ -142,21 +168,23 @@ public class AddStudent extends AppCompatActivity {
                             try {
                                 String body = response.getString("d");
 
-                                if (body.equals("Mobile No already registered.")) {
+                                if (body.substring(1, body.length() - 1).equals("Mobile No already registered.")) {
                                     mobileErrorText.setText(body);
                                     mobileEditText.requestFocus();
                                     mobileEditText.setSelection(mobileEditText.getText().length());
                                     mobileErrorText.setVisibility(View.VISIBLE);
                                     progressDialog.dismiss();
 
-                                } else if (body.equals("EmailID already registered.")) {
+                                }
+                                if (body.substring(1, body.length() - 1).equals("EmailID already registered.")) {
                                     emailErrorText.setText(body);
                                     emailEditText.requestFocus();
                                     emailEditText.setSelection(emailEditText.getText().length());
                                     emailErrorText.setVisibility(View.VISIBLE);
                                     progressDialog.dismiss();
 
-                                } else {
+                                }
+                                if (body.substring(1, body.length() - 1).equals("Registration has been successfully completed.")) {
                                     nameEditText.setText("");
                                     emailEditText.setText("");
                                     mobileEditText.setText("");
@@ -194,7 +222,7 @@ public class AddStudent extends AppCompatActivity {
     private void validateName() {
         String name = nameEditText.getText().toString().trim();
         if (name.isEmpty()) {
-            nameErrorText.setText("Please enter your Library name");
+            nameErrorText.setText("Please enter student name");
             nameErrorText.setVisibility(View.VISIBLE);
         } else if (!name.matches("[a-zA-Z ]+")) {
             nameErrorText.setText("Invalid name format");
@@ -208,7 +236,7 @@ public class AddStudent extends AppCompatActivity {
     private void validateEmail() {
         String email = emailEditText.getText().toString().trim();
         if (email.isEmpty()) {
-            emailErrorText.setText("Please enter your email");
+            emailErrorText.setText("Please enter student email");
             emailErrorText.setVisibility(View.VISIBLE);
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailErrorText.setText("Invalid email format");
@@ -222,7 +250,7 @@ public class AddStudent extends AppCompatActivity {
     private void validateMobile() {
         String mobile = mobileEditText.getText().toString().trim();
         if (mobile.isEmpty()) {
-            mobileErrorText.setText("Please enter your mobile number");
+            mobileErrorText.setText("Please enter student  mobile number");
             mobileErrorText.setVisibility(View.VISIBLE);
         } else if (!mobile.matches("[0-9]{10}")) {
             mobileErrorText.setText("Invalid mobile number format");
@@ -254,7 +282,6 @@ public class AddStudent extends AppCompatActivity {
     private String getRegistrationId() {
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-
         return sharedPreferences.getString("registration_id", "");
     }
 
@@ -265,5 +292,83 @@ public class AddStudent extends AppCompatActivity {
         startActivity(intent);
         finish();
         return true;
+    }
+
+    private void getPlan() {
+
+        JSONObject jsonBody = new JSONObject();
+        try {
+
+            jsonBody.put("PlanID", "0");
+            jsonBody.put("RegistrationID", getRegistrationId());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        planList = new ArrayList<>();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constants.get_Plan, jsonBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            // Parse JSON object and populate planList
+
+                            JSONArray jsonArrayRequest = new JSONArray(response.getString("d"));
+
+                            for (int i = 0; i < jsonArrayRequest.length(); i++) {
+                                JSONObject jsonObject = jsonArrayRequest.getJSONObject(i);
+
+                                int planID = jsonObject.getInt("PlanID");
+                                String planName = jsonObject.getString("PlanName");
+
+                                planList.add(new Plan(planID, planName));
+                            }
+
+
+                            // Create ArrayAdapter using planList
+                            ArrayAdapter<Plan> adapter = new ArrayAdapter<>(AddStudent.this, android.R.layout.simple_spinner_item, planList);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                            // Set adapter to spinner
+                            spinner.setAdapter(adapter);
+
+                            // Set spinner item selected listener
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        // Add the request to the RequestQueue
+        requestQueue.add(request);
+
+    }
+
+    // Model class to hold plan data
+    private class Plan {
+        private int planID;
+        private String planName;
+
+        public Plan(int planID, String planName) {
+            this.planID = planID;
+            this.planName = planName;
+        }
+
+        public int getPlanID() {
+            return planID;
+        }
+
+        @Override
+        public String toString() {
+            return planName;
+        }
     }
 }
