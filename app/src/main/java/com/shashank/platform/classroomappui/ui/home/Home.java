@@ -1,7 +1,6 @@
 package com.shashank.platform.classroomappui.ui.home;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,6 +22,8 @@ import android.widget.TextView;
 import com.shashank.platform.classroomappui.LoginScreen;
 import com.shashank.platform.classroomappui.MyProfile;
 import com.shashank.platform.classroomappui.R;
+import com.shashank.platform.classroomappui.ui.expense.AddExpense;
+import com.shashank.platform.classroomappui.ui.expensereport.ExpenseReport;
 import com.shashank.platform.classroomappui.ui.plans.ViewPlans;
 import com.shashank.platform.classroomappui.ui.students.ViewStudents;
 
@@ -115,52 +116,45 @@ public class Home extends AppCompatActivity
         } else if (id == R.id.nav_plans) {
             Intent intent = new Intent(getApplicationContext(), ViewPlans.class);
             startActivity(intent);
-        }
-        // else if (id == R.id.nav_settings) {
-//            Intent intent = new Intent(getApplicationContext(), Settings.class);
-//            startActivity(intent);
-//
-//        }
-        else if (id == R.id.nav_logout) {
-
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Logout Confirmation");
-            builder.setMessage("Are you sure you want to logout?");
-
-// Add the buttons
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.clear(); // Clear all data from SharedPreferences
-                    editor.apply(); // Commit the changes
-                    finish();
-                    startActivity(new Intent(Home.this, LoginScreen.class));
-                }
-            });
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    // User clicked No button
-                    // Dismiss the dialog
-                    dialog.dismiss();
-                }
-            });
-
-            // Create and show the AlertDialog
-            AlertDialog dialog = builder.create();
+        } else if (id == R.id.addExpense) {
+            Intent intent = new Intent(getApplicationContext(), AddExpense.class);
+            startActivity(intent);
+        } else if (id == R.id.exReport) {
+            Intent intent = new Intent(getApplicationContext(), ExpenseReport.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_logout) {
+            AlertDialog dialog = getAlertDialog();
             dialog.show();
-
         }
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_rate) {
-//
-//        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private AlertDialog getAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Logout Confirmation");
+        builder.setMessage("Are you sure you want to logout?");
+
+// Add the buttons
+        builder.setPositiveButton("Yes", (dialog, id) -> {
+            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear(); // Clear all data from SharedPreferences
+            editor.apply(); // Commit the changes
+            finish();
+            startActivity(new Intent(Home.this, LoginScreen.class));
+        });
+        builder.setNegativeButton("No", (dialog, id) -> {
+            // User clicked No button
+            // Dismiss the dialog
+            dialog.dismiss();
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog dialog = builder.create();
+        return dialog;
     }
 
     @Override

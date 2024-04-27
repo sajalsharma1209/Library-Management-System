@@ -2,7 +2,7 @@ package com.shashank.platform.classroomappui.ui.students;
 
 public class ViewStudentModel {
 
-    String UserID, Name, MobileNo, EmailID, Gender, MaritalStatus, DOB, PlanID, PlanName, SeatNo, PlanType, SeatID;
+    private String UserID, Name, MobileNo, EmailID, Gender, MaritalStatus, DOB, PlanID, PlanName, SeatNo, PlanType, SeatID;
 
     public ViewStudentModel(String userID, String name, String mobileNo, String emailID, String gender, String maritalStatus, String DOB, String planID, String planName, String seatNo, String planType, String seatID) {
         UserID = userID;

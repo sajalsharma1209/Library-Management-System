@@ -57,8 +57,8 @@ public class LoginScreen extends AppCompatActivity {
         passwordErrorText = findViewById(R.id.password_error_text);
 
 
-        emailEditText.setText("L592748");
-        passwordEditText.setText("qwerty");
+//        emailEditText.setText("L592748");
+//        passwordEditText.setText("qwerty");
 
 
         Button submitButton = findViewById(R.id.sign_in);
@@ -111,7 +111,7 @@ public class LoginScreen extends AppCompatActivity {
 
                                         // Extracting values
                                         int registrationID = innerJsonObject.getInt("RegistrationID");
-                                      //  Toast.makeText(this, "" + registrationID, Toast.LENGTH_SHORT).show();
+                                        //  Toast.makeText(this, "" + registrationID, Toast.LENGTH_SHORT).show();
 
 
                                         // Get the SharedPreferences object

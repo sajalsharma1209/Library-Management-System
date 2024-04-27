@@ -3,7 +3,7 @@ package com.shashank.platform.classroomappui.ui.plans;
 
 public class ViewPlansModel {
 
-    String PlanID, PlanName, Amount, RegistrationID, PlanTypeID, PlanType, Duration, PlanDesc, CreateOn;
+    private String PlanID, PlanName, Amount, RegistrationID, PlanTypeID, PlanType, Duration, PlanDesc, CreateOn;
 
     public ViewPlansModel(String planID, String planName, String amount, String registrationID, String planTypeID, String planType, String duration, String planDesc, String createOn) {
         PlanID = planID;

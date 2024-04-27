@@ -17,40 +17,40 @@
             android:id="@+id/nav_plans"
             android:icon="@drawable/ic_event_black_24dp"
             android:title="Plans" />
-<!--        <item-->
-<!--            android:id="@+id/nav_seat"-->
-<!--            android:icon="@drawable/ic_import_contacts_black_24dp"-->
-<!--            android:title="Seat" />-->
+        <!--        <item-->
+        <!--            android:id="@+id/nav_seat"-->
+        <!--            android:icon="@drawable/ic_import_contacts_black_24dp"-->
+        <!--            android:title="Seat" />-->
 
-<!--        <item-->
-<!--            android:id="@+id/nav_announcements"-->
-<!--            android:icon="@drawable/ic_schedule_black_24dp"-->
-<!--            android:title="Announcements" />-->
-<!--        <item-->
-<!--            android:id="@+id/nav_settings"-->
-<!--            android:icon="@drawable/ic_settings_black_24dp"-->
-<!--            android:title="Settings" />-->
+        <!--        <item-->
+        <!--            android:id="@+id/nav_announcements"-->
+        <!--            android:icon="@drawable/ic_schedule_black_24dp"-->
+        <!--            android:title="Announcements" />-->
+        <!--        <item-->
+        <!--            android:id="@+id/nav_settings"-->
+        <!--            android:icon="@drawable/ic_settings_black_24dp"-->
+        <!--            android:title="Settings" />-->
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_exit_to_app_black_24dp"
             android:title="Logout" />
     </group>
 
-<!--    <item android:title="Communicate">-->
-<!--        <menu>-->
-<!--            <item-->
-<!--                android:id="@+id/nav_share"-->
-<!--                android:icon="@drawable/ic_menu_share"-->
-<!--                android:title="Share" />-->
-<!--            <item-->
-<!--                android:id="@+id/nav_rate"-->
-<!--                android:icon="@drawable/ic_menu_send"-->
-<!--                android:title="Rate this app" />-->
-<!--            <item-->
-<!--                android:id="@+id/nav_report_bug"-->
-<!--                android:icon="@drawable/ic_bug_report_black_24dp"-->
-<!--                android:title="Report bug" />-->
-<!--        </menu>-->
-<!--    </item>-->
+    <item android:title="Expense">
+        <menu>
+            <item
+                android:id="@+id/addExpense"
+                android:icon="@drawable/accounting"
+                android:title="Add Expense" />
+            <item
+                android:id="@+id/exReport"
+                android:icon="@drawable/expenses"
+                android:title="Expense Report" />
+            <!--            <item-->
+            <!--                android:id="@+id/nav_report_bug"-->
+            <!--                android:icon="@drawable/ic_bug_report_black_24dp"-->
+            <!--                android:title="Report bug" />-->
+        </menu>
+    </item>
 
 </menu>

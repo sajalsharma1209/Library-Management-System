@@ -1,4 +1,4 @@
-package com.shashank.platform.classroomappui.ui.paymentdetails;
+package com.shashank.platform.classroomappui.ui.expensereport;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -28,11 +28,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class PaymentDetails extends AppCompatActivity {
+public class ExpenseReport extends AppCompatActivity {
 
     RecyclerView recview;
-    ArrayList<PaymentDetailsModel> datalist;
-    PaymentDetailsAdapter adapter;
+    ArrayList<ExpenseReportModel> datalist;
+    ExpenseReportAdapter adapter;
     ImageView imageView;
 
     String UserID;
@@ -43,9 +43,9 @@ public class PaymentDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_payment_details);
+        setContentView(R.layout.activity_expense_report);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("Payment Details");
+        setTitle("Expense Report");
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -59,7 +59,7 @@ public class PaymentDetails extends AppCompatActivity {
         UserID = getIntent().getStringExtra("UserID");
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Fetching payment details...");
+        progressDialog.setMessage("Fetching Expenses...");
         progressDialog.setCancelable(false);
         progressDialog.show();
 
@@ -68,14 +68,14 @@ public class PaymentDetails extends AppCompatActivity {
         JSONObject jsonBody = new JSONObject();
         try {
 
-            jsonBody.put("UserID", UserID);
+            jsonBody.put("UserID", "0");
             jsonBody.put("RegistrationID", getRegistrationId());
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Constants.get_Account, jsonBody,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Constants.get_Expense, jsonBody,
                 response -> {
                     try {
                         progressDialog.dismiss();
@@ -95,9 +95,9 @@ public class PaymentDetails extends AppCompatActivity {
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject innerJsonObject = jsonArray.getJSONObject(i);
-                            PaymentDetailsModel obj = new PaymentDetailsModel(innerJsonObject.getString("Amount"), innerJsonObject.getString("CreditDebitDate"), innerJsonObject.getString("Remarks"), innerJsonObject.getString("CashChequeNEFT"), innerJsonObject.getString("FromDate"), innerJsonObject.getString("ToDate"));
+                            ExpenseReportModel obj = new ExpenseReportModel(innerJsonObject.getString("CreditDebit"),innerJsonObject.getString("Amount"), innerJsonObject.getString("CreditDebitDate"), innerJsonObject.getString("Remarks"), innerJsonObject.getString("CashChequeNEFT"), innerJsonObject.getString("FromDate"), innerJsonObject.getString("ToDate"));
                             datalist.add(obj);
-                            adapter = new PaymentDetailsAdapter(datalist);
+                            adapter = new ExpenseReportAdapter(datalist);
                             recview.setAdapter(adapter);
                         }
 
@@ -117,7 +117,7 @@ public class PaymentDetails extends AppCompatActivity {
         // Add the request to the RequestQueue.
         requestQueue.add(jsonObjectRequest);
 
-        adapter = new PaymentDetailsAdapter(datalist);
+        adapter = new ExpenseReportAdapter(datalist);
         recview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -133,7 +133,7 @@ public class PaymentDetails extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(PaymentDetails.this, ViewStudents.class);
+        Intent intent = new Intent(ExpenseReport.this, ViewStudents.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
@@ -142,7 +142,7 @@ public class PaymentDetails extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        Intent intent = new Intent(PaymentDetails.this, ViewStudents.class);
+        Intent intent = new Intent(ExpenseReport.this, ViewStudents.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

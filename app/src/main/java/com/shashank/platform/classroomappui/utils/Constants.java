@@ -9,8 +9,9 @@ public class Constants {
     public static String get_Plan = API_BASE_URL + "GetPlan";
     public static String get_Student = API_BASE_URL + "GetUser";
     public static String get_Account = API_BASE_URL + "GetAccount";
+    public static String get_Expense = API_BASE_URL + "GetExpense";
     public static String plan_Insert_Update = API_BASE_URL + "InstUptPlan";
     public static String Student_Insert_Update = API_BASE_URL + "InstUptRegistrationUser";
     public static String Seat_Insert_Update = API_BASE_URL + "InstUptSeat";
-    public static String Payment_Insert_Update = API_BASE_URL + "InstUptAccount";
+    public static String Payment_Expense_Insert_Update = API_BASE_URL + "InstUptAccount";
 }

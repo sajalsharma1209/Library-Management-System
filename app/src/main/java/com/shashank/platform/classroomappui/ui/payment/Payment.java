@@ -159,7 +159,7 @@ public class Payment extends AppCompatActivity {
 
 
                 //Request a JSON response from the provided URL.
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Constants.Payment_Insert_Update, jsonBody, response -> {
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Constants.Payment_Expense_Insert_Update, jsonBody, response -> {
 
 
                     progressDialog.dismiss();
