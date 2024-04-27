@@ -13,17 +13,47 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.shashank.platform.classroomappui.R;
+import com.shashank.platform.classroomappui.ui.payment.Payment;
+import com.shashank.platform.classroomappui.ui.paymentdetails.PaymentDetails;
 import com.shashank.platform.classroomappui.ui.seat.AddSeat;
 import com.shashank.platform.classroomappui.ui.seat.UpdateSeat;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Locale;
 
 public class ViewStudentAdapter extends RecyclerView.Adapter<ViewStudentAdapter.viewholder> implements Filterable {
 
     ArrayList<ViewStudentModel> datalist;
     private ArrayList<ViewStudentModel> dataListFiltered;
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence keyword) {
+            ArrayList<ViewStudentModel> filterdata = new ArrayList<>();
+
+            if (keyword.toString().isEmpty()) {
+                filterdata.addAll(dataListFiltered);
+            } else {
+                for (ViewStudentModel obj : dataListFiltered) {
+                    if (obj.getMobileNo().contains(keyword.toString().trim())) {
+                        filterdata.add(obj);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filterdata;
+            results.count = filterdata.size();
+            return results;
+        }
+
+        @SuppressLint("NotifyDataSetChanged")
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            datalist.clear();
+            datalist.addAll((Collection<? extends ViewStudentModel>) filterResults.values);
+            notifyDataSetChanged();
+
+        }
+    };
 
     public ViewStudentAdapter(ArrayList<ViewStudentModel> datalist) {
         this.datalist = datalist;
@@ -85,6 +115,24 @@ public class ViewStudentAdapter extends RecyclerView.Adapter<ViewStudentAdapter.
             }
         });
 
+        holder.pay.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.name.getContext(), Payment.class);
+
+            intent.putExtra("UserID", datalist.get(position).getUserID());
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            holder.name.getContext().startActivity(intent);
+        });
+        holder.paymentDetails.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.name.getContext(), PaymentDetails.class);
+
+            intent.putExtra("UserID", datalist.get(position).getUserID());
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            holder.name.getContext().startActivity(intent);
+        });
 
     }
 
@@ -93,45 +141,14 @@ public class ViewStudentAdapter extends RecyclerView.Adapter<ViewStudentAdapter.
         return datalist.size();
     }
 
-
     @Override
     public Filter getFilter() {
         return filter;
     }
 
-    Filter filter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence keyword) {
-            ArrayList<ViewStudentModel> filterdata = new ArrayList<>();
-
-            if (keyword.toString().isEmpty()) {
-                filterdata.addAll(dataListFiltered);
-            } else {
-                for (ViewStudentModel obj : dataListFiltered) {
-                    if (obj.getMobileNo().contains(keyword.toString().trim())) {
-                        filterdata.add(obj);
-                    }
-                }
-            }
-            FilterResults results = new FilterResults();
-            results.values = filterdata;
-            results.count = filterdata.size();
-            return results;
-        }
-
-        @SuppressLint("NotifyDataSetChanged")
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            datalist.clear();
-            datalist.addAll((Collection<? extends ViewStudentModel>) filterResults.values);
-            notifyDataSetChanged();
-
-        }
-    };
-
     public static class viewholder extends RecyclerView.ViewHolder {
-        TextView name, mobile, martial, dob, gender, email, planname, seatno,shift;
-        CardView edit, seat;
+        TextView name, mobile, martial, dob, gender, email, planname, seatno, shift;
+        CardView edit, seat, pay,paymentDetails;
 
         public viewholder(@NonNull View itemView) {
             super(itemView);
@@ -147,6 +164,8 @@ public class ViewStudentAdapter extends RecyclerView.Adapter<ViewStudentAdapter.
             seatno = itemView.findViewById(R.id.seatno);
             shift = itemView.findViewById(R.id.shiftType);
             seat = itemView.findViewById(R.id.seatAllot);
+            pay = itemView.findViewById(R.id.payment);
+            paymentDetails = itemView.findViewById(R.id.paymentDetails);
 
 
         }

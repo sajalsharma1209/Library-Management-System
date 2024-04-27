@@ -25,7 +25,8 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="@drawable/rounded_image_bg"
-                android:src="@drawable/profile" />
+                android:src="@drawable/profile"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -421,8 +422,8 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/updateStudent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="52dp"
                 android:layout_margin="7dp"
                 android:background="@drawable/blue_rounded_solid"
                 app:cardCornerRadius="5dp"
@@ -431,6 +432,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:orientation="vertical">
 
                     <ImageView
@@ -457,8 +459,8 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/seatAllot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="52dp"
                 android:layout_margin="7dp"
                 android:background="@drawable/blue_rounded_solid"
                 app:cardCornerRadius="5dp"
@@ -467,6 +469,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:orientation="vertical">
 
                     <ImageView
@@ -484,6 +487,80 @@
                         android:layout_margin="@dimen/_5sdp"
                         android:fontFamily="serif"
                         android:text="Seat"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/payment"
+                android:layout_width="50dp"
+                android:layout_height="52dp"
+                android:layout_margin="7dp"
+                android:background="@drawable/blue_rounded_solid"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:contentDescription="Payment"
+                        android:focusable="true"
+                        android:foregroundGravity="right"
+                        android:src="@drawable/baseline_currency_rupee_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:fontFamily="serif"
+                        android:text="Pay"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/paymentDetails"
+                android:layout_width="50dp"
+                android:layout_height="52dp"
+                android:layout_margin="7dp"
+                android:background="@drawable/blue_rounded_solid"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:contentDescription="Payment"
+                        android:focusable="true"
+                        android:foregroundGravity="right"
+                        android:src="@drawable/baseline_currency_rupee_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:fontFamily="serif"
+                        android:text="Detail"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 

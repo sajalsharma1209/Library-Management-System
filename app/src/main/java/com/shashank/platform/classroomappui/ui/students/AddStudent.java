@@ -30,7 +30,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.shashank.platform.classroomappui.R;
-import com.shashank.platform.classroomappui.ui.seat.AddSeat;
 import com.shashank.platform.classroomappui.utils.Constants;
 
 import org.json.JSONArray;

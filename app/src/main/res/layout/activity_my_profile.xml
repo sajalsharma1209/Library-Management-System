@@ -53,7 +53,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="4dp"
                                 android:fontFamily="@font/calibri"
-                                android:text="Shashank Singhal"
+                                android:text="test"
                                 android:textColor="#000000"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -62,7 +62,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/calibri"
-                                android:text="Ajmer, Rajasthan"
+                                android:text="test"
                                 android:textSize="16sp" />
 
                         </LinearLayout>
@@ -104,7 +104,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/calibri"
-                                android:text="Subscribed"
+                                android:text="test"
                                 android:textSize="16sp" />
                         </LinearLayout>
 
@@ -129,7 +129,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/calibri"
-                                android:text="Courses"
+                                android:text="test"
                                 android:textSize="16sp" />
 
                         </LinearLayout>
@@ -155,7 +155,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/calibri"
-                                android:text="Avg. Ratings"
+                                android:text="test"
                                 android:textSize="16sp" />
 
                         </LinearLayout>
@@ -181,7 +181,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         android:fontFamily="@font/calibri"
-                        android:text="About Shashank"
+                        android:text="About test"
                         android:textColor="#000000"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -241,7 +241,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
                             android:fontFamily="@font/calibri"
-                            android:text="Shashank Singhal"
+                            android:text="test"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="16sp" />
 
@@ -274,7 +274,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
                             android:fontFamily="@font/calibri"
-                            android:text="9782444729"
+                            android:text="test"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="16sp" />
 
@@ -307,7 +307,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
                             android:fontFamily="@font/calibri"
-                            android:text="shashanksinghal02@gmail.com"
+                            android:text="test"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="16sp" />
 
