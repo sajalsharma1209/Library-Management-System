@@ -13,6 +13,8 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.shashank.platform.classroomappui.R;
+import com.shashank.platform.classroomappui.ui.address.AddAddress;
+import com.shashank.platform.classroomappui.ui.attendance.Attendance;
 import com.shashank.platform.classroomappui.ui.payment.Payment;
 import com.shashank.platform.classroomappui.ui.paymentdetails.PaymentDetails;
 import com.shashank.platform.classroomappui.ui.seat.AddSeat;
@@ -78,6 +80,7 @@ public class ViewStudentAdapter extends RecyclerView.Adapter<ViewStudentAdapter.
         holder.planname.setText(datalist.get(position).getPlanName());
         holder.seatno.setText(datalist.get(position).getSeatNo());
         holder.shift.setText(datalist.get(position).getPlanType());
+
         holder.edit.setOnClickListener(v -> {
             Intent intent = new Intent(holder.name.getContext(), UpdateStudent.class);
 
@@ -134,6 +137,26 @@ public class ViewStudentAdapter extends RecyclerView.Adapter<ViewStudentAdapter.
             holder.name.getContext().startActivity(intent);
         });
 
+        holder.address.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.name.getContext(), AddAddress.class);
+
+            intent.putExtra("UserID", datalist.get(position).getUserID());
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            holder.name.getContext().startActivity(intent);
+        });
+        holder.attendance.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.name.getContext(), Attendance.class);
+
+            intent.putExtra("UserID", datalist.get(position).getUserID());
+            intent.putExtra("Name", datalist.get(position).getName());
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            holder.name.getContext().startActivity(intent);
+        });
+
     }
 
     @Override
@@ -148,7 +171,7 @@ public class ViewStudentAdapter extends RecyclerView.Adapter<ViewStudentAdapter.
 
     public static class viewholder extends RecyclerView.ViewHolder {
         TextView name, mobile, martial, dob, gender, email, planname, seatno, shift;
-        CardView edit, seat, pay,paymentDetails;
+        CardView edit, seat, pay, paymentDetails, address,attendance;
 
         public viewholder(@NonNull View itemView) {
             super(itemView);
@@ -166,6 +189,8 @@ public class ViewStudentAdapter extends RecyclerView.Adapter<ViewStudentAdapter.
             seat = itemView.findViewById(R.id.seatAllot);
             pay = itemView.findViewById(R.id.payment);
             paymentDetails = itemView.findViewById(R.id.paymentDetails);
+            address = itemView.findViewById(R.id.adressDetails);
+            attendance = itemView.findViewById(R.id.attendance);
 
 
         }

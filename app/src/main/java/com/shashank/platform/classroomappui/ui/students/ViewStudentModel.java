@@ -4,6 +4,7 @@ public class ViewStudentModel {
 
     private String UserID, Name, MobileNo, EmailID, Gender, MaritalStatus, DOB, PlanID, PlanName, SeatNo, PlanType, SeatID;
 
+
     public ViewStudentModel(String userID, String name, String mobileNo, String emailID, String gender, String maritalStatus, String DOB, String planID, String planName, String seatNo, String planType, String seatID) {
         UserID = userID;
         Name = name;
@@ -66,4 +67,6 @@ public class ViewStudentModel {
     public String getSeatID() {
         return SeatID;
     }
+
+
 }

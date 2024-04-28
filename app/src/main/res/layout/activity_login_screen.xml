@@ -86,7 +86,7 @@
                     android:drawableStart="@drawable/ic_email_gray_24dp"
                     android:drawablePadding="16dp"
                     android:fontFamily="@font/calibri"
-                    android:hint="Email"
+                    android:hint="Email or mobile"
                     android:inputType="textEmailAddress"
                     android:text=""
                     android:textSize="16sp" />

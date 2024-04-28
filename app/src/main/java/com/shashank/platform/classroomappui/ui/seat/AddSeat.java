@@ -140,7 +140,7 @@ public class AddSeat extends AppCompatActivity {
     private void validateType() {
         String type = spinner.getSelectedItem().toString().trim();
         if (type.equalsIgnoreCase("-Select Shift-")) {
-            typeErrorText.setText("Please select plan type");
+            typeErrorText.setText("Please select shift");
             typeErrorText.setVisibility(View.VISIBLE);
 
         } else {
@@ -149,7 +149,7 @@ public class AddSeat extends AppCompatActivity {
     }
 
     private boolean isFormValid() {
-        return nameErrorText.getVisibility() == View.GONE;
+        return nameErrorText.getVisibility() == View.GONE && typeErrorText.getVisibility() == View.GONE;
     }
 
     @Override
@@ -161,5 +161,12 @@ public class AddSeat extends AppCompatActivity {
         return true;
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(AddSeat.this, ViewStudents.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
 }

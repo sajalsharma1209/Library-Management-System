@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -38,6 +39,7 @@ public class ViewStudents extends AppCompatActivity {
     ArrayList<ViewStudentModel> datalist;
     ViewStudentAdapter adapter;
     ImageView imageView;
+    TextView totalStudent;
     private ProgressDialog progressDialog;
     private RequestQueue requestQueue;
 
@@ -53,6 +55,7 @@ public class ViewStudents extends AppCompatActivity {
         recview = findViewById(R.id.recview);
 
         imageView = findViewById(R.id.imageView);
+        totalStudent = findViewById(R.id.totalstudentLbl);
 
 
         recview.setLayoutManager(new LinearLayoutManager(this));
@@ -91,13 +94,14 @@ public class ViewStudents extends AppCompatActivity {
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject innerJsonObject = jsonArray.getJSONObject(i);
-                    ViewStudentModel obj = new ViewStudentModel(innerJsonObject.getString("RegistrationID"), innerJsonObject.getString("Name"), innerJsonObject.getString("MobileNo"), innerJsonObject.getString("EmailID"), innerJsonObject.getString("Gender"), innerJsonObject.getString("MaritalStatus"), innerJsonObject.getString("DOB"), innerJsonObject.getString("PlanID"), innerJsonObject.getString("PlanName"), innerJsonObject.getString("SeatNo"), innerJsonObject.getString("PlanType"),innerJsonObject.getString("SeatID"));
+                    ViewStudentModel obj = new ViewStudentModel(innerJsonObject.getString("RegistrationID"), innerJsonObject.getString("Name"), innerJsonObject.getString("MobileNo"), innerJsonObject.getString("EmailID"), innerJsonObject.getString("Gender"), innerJsonObject.getString("MaritalStatus"), innerJsonObject.getString("DOB"), innerJsonObject.getString("PlanID"), innerJsonObject.getString("PlanName"), innerJsonObject.getString("SeatNo"), innerJsonObject.getString("PlanType"), innerJsonObject.getString("SeatID"));
                     datalist.add(obj);
                     adapter = new ViewStudentAdapter(datalist);
                     recview.setAdapter(adapter);
                 }
 
                 adapter.notifyDataSetChanged();
+                totalStudent.setText("" + datalist.size());
             } catch (JSONException e) {
                 progressDialog.dismiss();
                 Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -112,9 +116,11 @@ public class ViewStudents extends AppCompatActivity {
         // Add the request to the RequestQueue.
         requestQueue.add(jsonObjectRequest);
 
+
         adapter = new ViewStudentAdapter(datalist);
         recview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
 
     }
 
@@ -147,7 +153,7 @@ public class ViewStudents extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-               return false;
+                return false;
             }
 
             @Override
@@ -168,5 +174,7 @@ public class ViewStudents extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }

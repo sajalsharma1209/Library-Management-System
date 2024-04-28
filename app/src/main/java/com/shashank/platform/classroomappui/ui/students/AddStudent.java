@@ -30,6 +30,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.shashank.platform.classroomappui.R;
+import com.shashank.platform.classroomappui.ui.seat.AddSeat;
 import com.shashank.platform.classroomappui.utils.Constants;
 
 import org.json.JSONArray;
@@ -182,8 +183,7 @@ public class AddStudent extends AppCompatActivity {
                                     emailErrorText.setVisibility(View.VISIBLE);
                                     progressDialog.dismiss();
 
-                                }
-                                if (body.substring(1, body.length() - 1).equals("Registration has been successfully completed.")) {
+                                } else {
                                     nameEditText.setText("");
                                     emailEditText.setText("");
                                     mobileEditText.setText("");
@@ -191,7 +191,8 @@ public class AddStudent extends AppCompatActivity {
                                     emailErrorText.setVisibility(View.GONE);
                                     progressDialog.dismiss();
                                     Toast.makeText(this, "Registered Successfully", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(AddStudent.this, ViewStudents.class);
+                                    Intent intent = new Intent(AddStudent.this, AddSeat.class);
+                                    intent.putExtra("UserID", body.substring(1, body.length() - 1));
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
                                 }

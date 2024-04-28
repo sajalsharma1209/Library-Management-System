@@ -26,7 +26,7 @@
                 android:layout_height="70dp"
                 android:background="@drawable/rounded_image_bg"
                 android:src="@drawable/profile"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_5sdp"
                         android:fontFamily="serif"
-                        android:text="PlanType"
+                        android:text="NA"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
@@ -88,8 +88,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_5sdp"
                         android:fontFamily="serif"
-                        android:text="email"
-                        android:textColor="@color/black"
+                        android:text="NA"
+                        android:textColor="@color/primaryText"
                         android:textSize="12sp" />
 
                 </LinearLayout>
@@ -132,7 +132,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/_5sdp"
                             android:fontFamily="serif"
-                            android:text="PlanType"
+                            android:text="NA"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="12sp" />
 
@@ -162,7 +162,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/_5sdp"
                             android:fontFamily="serif"
-                            android:text="email"
+                            android:text="NA"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
 
@@ -262,8 +262,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_5sdp"
                         android:fontFamily="serif"
-                        android:text="mobile"
-                        android:textColor="@color/black"
+                        android:text="NA"
+                        android:textColor="#13B600"
                         android:textSize="12sp" />
 
 
@@ -294,7 +294,7 @@
                         android:layout_margin="@dimen/_5sdp"
                         android:fontFamily="serif"
                         android:gravity="start"
-                        android:text="DOB"
+                        android:text="NA"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
@@ -334,7 +334,7 @@
                         android:layout_margin="@dimen/_5sdp"
                         android:fontFamily="serif"
                         android:gravity="start"
-                        android:text="gender"
+                        android:text="NA"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
@@ -366,7 +366,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_5sdp"
                         android:fontFamily="serif"
-                        android:text="MaritalStatus"
+                        android:text="NA"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
@@ -375,6 +375,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -400,7 +401,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_5sdp"
                 android:fontFamily="serif"
-                android:text="PlanType"
+                android:text="NA"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
@@ -422,10 +423,10 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/updateStudent"
-                android:layout_width="50dp"
-                android:layout_height="52dp"
-                android:layout_margin="7dp"
-                android:background="@drawable/blue_rounded_solid"
+                android:layout_width="52dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="7dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="3dp">
 
@@ -451,7 +452,44 @@
                         android:fontFamily="serif"
                         android:text="Edit"
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/adressDetails"
+                android:layout_width="52dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="7dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:contentDescription="Payment"
+                        android:focusable="true"
+                        android:foregroundGravity="right"
+                        android:src="@drawable/baseline_cottage_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:fontFamily="serif"
+                        android:text="Address"
+                        android:textColor="@color/black"
+                        android:textSize="9sp" />
 
                 </LinearLayout>
 
@@ -459,10 +497,10 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/seatAllot"
-                android:layout_width="50dp"
-                android:layout_height="52dp"
-                android:layout_margin="7dp"
-                android:background="@drawable/blue_rounded_solid"
+                android:layout_width="52dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="7dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="3dp">
 
@@ -488,7 +526,7 @@
                         android:fontFamily="serif"
                         android:text="Seat"
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="9sp" />
 
                 </LinearLayout>
 
@@ -496,10 +534,10 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/payment"
-                android:layout_width="50dp"
-                android:layout_height="52dp"
-                android:layout_margin="7dp"
-                android:background="@drawable/blue_rounded_solid"
+                android:layout_width="52dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="7dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="3dp">
 
@@ -525,7 +563,7 @@
                         android:fontFamily="serif"
                         android:text="Pay"
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="9sp" />
 
                 </LinearLayout>
 
@@ -533,10 +571,10 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/paymentDetails"
-                android:layout_width="50dp"
-                android:layout_height="52dp"
-                android:layout_margin="7dp"
-                android:background="@drawable/blue_rounded_solid"
+                android:layout_width="52dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="7dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="3dp">
 
@@ -553,16 +591,54 @@
                         android:contentDescription="Payment"
                         android:focusable="true"
                         android:foregroundGravity="right"
-                        android:src="@drawable/baseline_currency_rupee_24" />
+                        android:src="@drawable/baseline_assignment_24" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_5sdp"
                         android:fontFamily="serif"
-                        android:text="Detail"
+                        android:gravity="center_horizontal"
+                        android:text="Pay Detail"
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+  <android.support.v7.widget.CardView
+                android:id="@+id/attendance"
+                android:layout_width="52dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="7dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:contentDescription="Payment"
+                        android:focusable="true"
+                        android:foregroundGravity="right"
+                        android:src="@drawable/baseline_co_present_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:fontFamily="serif"
+                        android:gravity="center_horizontal"
+                        android:text="Attendance"
+                        android:textColor="@color/black"
+                        android:textSize="9sp" />
 
                 </LinearLayout>
 
